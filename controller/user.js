@@ -4,8 +4,11 @@ const errorHandler = require("./helper/dbErrorhandler")
 exports.signUp=async(req,res)=>{
     try{
     const user= await new User(req.body).save()
+    user.salt=undefined
+    user.hashed_password=undefined
     res.send(user)
-    }catch(err){
+    }
+    catch(err){
        res.json(errorHandler(err))
     }
    
