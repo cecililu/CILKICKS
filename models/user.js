@@ -31,7 +31,9 @@ const userSchema=new mongoose.Schema({
        
        },
 
-       salt:String,
+       salt:
+       { type: String}
+       ,
 
        role:{
         type: Number,
@@ -47,11 +49,11 @@ const userSchema=new mongoose.Schema({
 userSchema.virtual('password')
 .set(function(password){
     this._password=password
-    this.salt=bcrypt.genSalt(10)
+    this.salt=  bcrypt.genSaltSync(10)
     this.hashed_password=bcrypt.hashSync(password)
 })
 .get(function(){
     return this._password
 })
 
-modules.export=mongoose.model('User',userSchema)
+module.exports=mongoose.model('User',userSchema)
