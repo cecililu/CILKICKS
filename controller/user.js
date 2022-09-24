@@ -2,7 +2,7 @@ const User=require("../models/user")
 const errorHandler = require("./helper/dbErrorhandler")
 
 const jwt=require('jsonwebtoken')
-const jwtExpress=require('express-jwt')
+var { expressjwt} = require("express-jwt");
 const bcrypt=require("bcryptjs")
 exports.signUpHandler=async(req,res)=>{
     try{
@@ -50,3 +50,19 @@ exports.signOutHandler=async(req,res)=>{
    res.clearCookie('t')
    res.send({message:'Signout'})
 }
+
+
+
+
+
+exports.requireSignin=expressjwt({
+    secret:'secret',
+    userProperty:'auth',
+    algorithms: ["HS256"]
+    
+})
+
+exports.dashbordHandler=async(req,res)=>{
+    
+    res.send("Hello dashboard")
+ }
