@@ -26,13 +26,18 @@ exports.signInHandler=async(req,res)=>{
    //email password verification
    
     const validpass=await bcrypt.compare(password, existuser.hashed_password)
+    if(!validpass){
+        return res.status(400).json({"error":"password dont match"})
+    }
+    existuser.salt=undefined
+    existuser.hashed_password=undefined
    try{
-   if (validpass){
+  
     const token=jwt.sign({email:existuser.email,
                     id:existuser.id},'secret')
 
-    res.status(200).send({token,data:"ok token sent" });
-    }}
+    res.status(200).send({token,user:existuser});
+    }
     catch(error)
     {  
         res.status(400).send({error});
