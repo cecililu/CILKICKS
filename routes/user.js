@@ -9,8 +9,8 @@ const router=express.Router()
 router.param('userId',userById)
 
 router.get('/secret/:userId',requireSignin,(req,res)=>{
-    console.log('ayo profilr bhiyr')
-    res.json({ user:req.profile })
+    console.log('conroller')
+    res.json({ user: req.profile })
 })
 
 
