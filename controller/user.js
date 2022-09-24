@@ -35,7 +35,7 @@ exports.signInHandler=async(req,res)=>{
   
     const token=jwt.sign({email:existuser.email,
                     id:existuser.id},'secret')
-
+    res.cookie('t',token,{expire:new Date()+9999})
     res.status(200).send({token,user:existuser});
     }
     catch(error)
@@ -43,4 +43,10 @@ exports.signInHandler=async(req,res)=>{
         res.status(400).send({error});
 
     }   
+}
+
+
+exports.signOutHandler=async(req,res)=>{
+   res.clearCookie('t')
+   res.send({message:'Signout'})
 }
