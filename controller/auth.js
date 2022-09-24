@@ -1,5 +1,5 @@
 const User=require("../models/user")
-const errorHandler = require("./helper/dbErrorhandler")
+const errorHandler = require("../helper/dbErrorhandler")
 
 const jwt=require('jsonwebtoken')
 var { expressjwt} = require("express-jwt");

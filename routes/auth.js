@@ -1,5 +1,5 @@
 const express=require('express');
-const { signUpHandler, signInHandler,signOutHandler, requireSignin, dashbordHandler } = require('../controller/user');
+const { signUpHandler, signInHandler,signOutHandler, requireSignin,dashbordHandler } = require('../controller/auth');
 const { useSignUpValidator, useSignUpValidatorArr } = require('../validators');
 
 const router=express.Router()
