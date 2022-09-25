@@ -5,6 +5,8 @@ const { dbconnect } = require("./dbconnect")
 
 const userRouterAuth= require("./routes/auth")
 const userRouter= require("./routes/user")
+const categoryRouter= require("./routes/category")
+
 
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
@@ -24,6 +26,8 @@ app.use(cookieParser())
 // app.use(expressValidator)
 app.use('/api/v1',userRouterAuth)
 app.use('/api/v1/',userRouter)
+app.use('/api/v1',categoryRouter)
+
 
 app.listen(process.env.PORT,()=>{
     console.log('SERVER RUNNING IN PORT'+process.env.PORT)
