@@ -51,10 +51,6 @@ exports.signOutHandler=async(req,res)=>{
    res.send({message:'Signout'})
 }
 
-
-
-
-
 exports.requireSignin=expressjwt({
     secret:'secret',
     userProperty:'auth',
@@ -66,3 +62,21 @@ exports.dashbordHandler=async(req,res)=>{
     
     res.send("Hello dashboard")
  }
+
+exports.isAuth=(req,res,next)=>{
+   let  user=req.profile  && req.auth && req.profile._id==req.auth._id
+   if (!user){
+    return res.status(403).json({
+        error:'access denied'
+    })
+   }
+   next()
+}
+exports.isAdmin=(req,res,next)=>{
+
+    if (req.profile.role===0){
+       return res.status(403).json({error:'no admin access' });
+    }
+
+    next();
+}
