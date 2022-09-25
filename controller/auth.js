@@ -64,6 +64,10 @@ exports.dashbordHandler=async(req,res)=>{
  }
 
 exports.isAuth=(req,res,next)=>{
+    //console.log(req.auth._id==req.profile._id)
+    console.log(req.profile._id=='63302214ccb833ab9c926e45')
+    // console.log(req.auth._id)
+
    let  user=req.profile  && req.auth && req.profile._id==req.auth._id
    if (!user){
     return res.status(403).json({
@@ -73,7 +77,7 @@ exports.isAuth=(req,res,next)=>{
    next()
 }
 exports.isAdmin=(req,res,next)=>{
-
+    console.log('admin?')
     if (req.profile.role===0){
        return res.status(403).json({error:'no admin access' });
     }

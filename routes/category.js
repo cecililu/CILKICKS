@@ -6,7 +6,7 @@ const { userById } = require('../controller/user');
 
 
 const router=express.Router()
-router.param('userid',userById)
-router.post('/category/create/:userId',requireSignin,isAuth,isAdmin,create);
 
+router.post('/category/create/:userId', requireSignin ,isAuth,isAdmin,create);
+router.param('userId',userById)
 module.exports=router;
