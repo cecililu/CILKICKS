@@ -9,7 +9,6 @@ const router=express.Router()
 
 
 router.get('/secret/:userId',requireSignin,isAuth,(req,res)=>{
-    console.log('conroller')
     res.json({ user: req.profile })
 })
 router.param('userId',userById)
