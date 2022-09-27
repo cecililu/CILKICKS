@@ -5,6 +5,12 @@ const formidable=require("formidable")
 const fs=require("fs");
 const product = require("../models/product");
 
+
+// let newprod=req.product 
+
+//   newprod=_.extend(newproduct,feilds)
+
+
 exports.productbyId=(req,res,next,id)=>{
 
   Product.findById(id).exec((err,product)=>{ 
@@ -36,45 +42,7 @@ exports.deleteProduct=(req,res)=>{
 
   })
 }
-exports.updateProduct=(req,res)=>{
-  console.log('update product runninf')
-  let form=new formidable.IncomingForm()
-  form.keepExtensions=true
-  
-  form.parse(req,(err,feilds,files)=>{
-    if (err){
-      return res.status(400).json({error:[err,'Image not uploaded']})
 
-    }
-  //check feilds
-//    const {name,description,price,category,quantity,shipping}=feild
-
-
-  let newprod=req.product 
-
-  newprod=_.extend(newproduct,feilds)
-
-
-  if (files.photo){
-    if (files.photo.size>1000000){
-      return res.status(400).json({
-        error:"image should be less than 1MB"
-      }) 
-    }
-    // console.log("fs.readFileSync(files.photo.filepath)")
-      newprod.photo.data= fs.readFileSync(files.photo.filepath)
-      newprod.photo.contentType=files.photo.mimetype
-   }
-
-
-   newprod.save((err,data)=>{
-    if (err) return res.json({
-      err})
-    return res.json({data})
-  })
-
-  })
-}
 
 exports.create=(req,res)=>{
     let form=new formidable.IncomingForm()
@@ -111,4 +79,43 @@ exports.create=(req,res)=>{
 
     })
    
+}
+
+
+exports.updateProduct=(req,res)=>{
+  let form=new formidable.IncomingForm()
+  form.keepExtensions=true
+  
+  form.parse(req,(err,feilds,files)=>{
+    if (err){
+      return res.status(400).json({error:[err,'Image not uploaded']})
+
+    }
+  //check feilds
+//    const {name,description,price,category,quantity,shipping}=feild
+
+    let newprod=req.product 
+
+    newprod=_.extend(newprod,feilds)
+  
+  if (files.photo){
+    if (files.photo.size>1000000){
+      return res.status(400).json({
+        error:"image should be less than 1MB"
+      })
+    }
+    // console.log("fs.readFileSync(files.photo.filepath)")
+      newprod.photo.data= fs.readFileSync(files.photo.filepath)
+      newprod.photo.contentType=files.photo.mimetype
+   }
+
+
+   newprod.save((err,data)=>{
+    if (err) return res.json({
+      err})
+    return res.json({data})
+  })
+
+  })
+ 
 }
