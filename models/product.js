@@ -30,9 +30,10 @@ const productSchema=new mongoose.Schema({
         quanity:{
             type:Number
         },
-        photo:{
+        photo: {
             data:Buffer,
-            contentType:String
+            contentType:String,
+            required:false,
         },
         shipping:{
             required:false,

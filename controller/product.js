@@ -16,11 +16,11 @@ exports.create=(req,res)=>{
       }
     //files.photo.path not working
     let newprod=new Product(feilds)
-    
-    if (!files.photo){
-      
-        product.photo.data=fs.readFileSync(files.photo.filepath)
-        product.photo.contentType=files.photo.mimetype
+    console.log()
+    if (files.photo){
+      // console.log("fs.readFileSync(files.photo.filepath)")
+        newprod.photo.data= fs.readFileSync(files.photo.filepath)
+        newprod.photo.contentType=files.photo.mimetype
      }
 
 
