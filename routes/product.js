@@ -7,6 +7,7 @@ const { userById } = require('../controller/user');
 
 const router=express.Router()
 
-router.post('/product/create/:userId', requireSignin ,isAuth,isAdmin);
+router.post('/product/create/:userId',requireSignin ,isAuth,isAdmin,create);
+
 router.param('userId',userById)
 module.exports=router;

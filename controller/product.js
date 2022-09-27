@@ -14,18 +14,21 @@ exports.create=(req,res)=>{
         return res.status(400).json({error:[err,'Image not uploaded']})
 
       }
+    //files.photo.path not working
+    let newprod=new Product(feilds)
     
-    let product=new Product(feilds)
-    
-    if (files.photo){
-        product.photo.data=fs.readFileSync(files.photo.path)
-        product.photo.contentType=files.photo.type
+    if (!files.photo){
+      
+        product.photo.data=fs.readFileSync(files.photo.filepath)
+        product.photo.contentType=files.photo.mimetype
      }
+
+
+     newprod.save((err,data)=>{
+      if (err) return res.json({"error":err})
+      return res.json({data})
     })
-    product.save((err,data)=>{
-        if (err){
-            return res.status(400).json({"error":[err,'product could npt be saved']})
-        }
-        return res.json({data}) 
-       }) 
+
+    })
+   
 }
