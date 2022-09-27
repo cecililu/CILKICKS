@@ -28,6 +28,7 @@ app.use(cookieParser())
 app.use('/api/v1',userRouterAuth)
 app.use('/api/v1/',userRouter)
 app.use('/api/v1',categoryRouter)
+app.use('/api/v1',productRouter)
 
 
 app.listen(process.env.PORT,()=>{
