@@ -6,6 +6,7 @@ const { dbconnect } = require("./dbconnect")
 const userRouterAuth= require("./routes/auth")
 const userRouter= require("./routes/user")
 const categoryRouter= require("./routes/category")
+const productRouter= require("./routes/product")
 
 
 const bodyParser = require("body-parser")
