@@ -6,6 +6,7 @@ const fs=require("fs");
 const product = require("../models/product");
 
 exports.productbyId=(req,res,next,id)=>{
+  console.log('productby id')
   Product.findById(id).exec((err,product)=>{
     if(err|| !product){
       return res.status(400),json({error:['not found product',err]})
@@ -13,12 +14,10 @@ exports.productbyId=(req,res,next,id)=>{
     req.product=product
     next()
   })
- 
-
 }
 exports.read=(req,res)=>{
-   req.product.photo=undefined
-   return res.json(req.product )
+  req.product.photo=undefined
+   return res.json(req.product)
 }
 
 exports.create=(req,res)=>{
