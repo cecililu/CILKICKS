@@ -6,18 +6,35 @@ const fs=require("fs");
 const product = require("../models/product");
 
 exports.productbyId=(req,res,next,id)=>{
-  console.log('productby id')
-  Product.findById(id).exec((err,product)=>{
+
+  Product.findById(id).exec((err,product)=>{ 
+   
     if(err|| !product){
-      return res.status(400),json({error:['not found product',err]})
-    }
+     
+      return res.status(400).json({error:['not found product',err]})
+   }
+   
     req.product=product
+    console.log('procuct id running')
     next()
   })
 }
 exports.read=(req,res)=>{
   req.product.photo=undefined
    return res.json(req.product)
+}
+exports.deleteProduct=(req,res)=>{
+  let product=req.product
+  product.remove((err,deletedProduct)=>{
+    if(err){
+      return res.json({"error":errorHandler(err)})
+    }
+    return res.json({
+      deletedProduct,
+      message:"product deleted"
+    })
+
+  })
 }
 
 exports.create=(req,res)=>{
