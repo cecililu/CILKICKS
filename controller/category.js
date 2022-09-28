@@ -45,8 +45,9 @@ exports.readList=(req,res)=>{
         })
 
        }
+       res.json({data})
     })
-    res.json({data})
+    
 }
 
 

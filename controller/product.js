@@ -143,12 +143,15 @@ exports.listProduct=(req,res)=>{
   }
 
 
-  exports.listRelated=(req,res)=>{
-    let limit= req.query.limit?req.query.limit:'6';
+
+
+exports.listRelated=(req,res)=>{
+    let limit= req.query.limit?req.query.limit:'100';
      Product.find({_id:{$ne:req.product},category:req.product.category})
+     .select('-photo')
     .limit(limit)
     .populate('category','_id name')
-     .exec((err,data)=>{
+      .exec((err,data)=>{
       if (err) return res.status(400).json({error:'related not found'})
       return res.json(data)
     })
