@@ -75,6 +75,7 @@ exports.create=(req,res)=>{
      newprod.save((err,data)=>{
       if (err) return res.json({
         err})
+        data.photo=undefined
       return res.json({data})
     })
 
@@ -141,3 +142,15 @@ exports.listProduct=(req,res)=>{
 
   }
 
+
+  exports.listRelated=(req,res)=>{
+    let limit= req.query.limit?req.query.limit:'6';
+     Product.find({_id:{$ne:req.product},category:req.product.category})
+    .limit(limit)
+    .populate('category','_id name')
+     .exec((err,data)=>{
+      if (err) return res.status(400).json({error:'related not found'})
+      return res.json(data)
+    })
+
+  }
